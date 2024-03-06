@@ -1,0 +1,34 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<hr>
+    <form action="" method="get">
+    {{ filterset.form.as_p }}
+        <input type="submit" value="Найти">
+    </form>
+
+
+{% if posts %}
+    <h2> Количество постов: {{ posts|length }}</h2>
+<table width="100%" style="margin-top: 35px">
+    <tr>
+        <td><u>Заголовок</u></td>
+        <td><u>Дата публикации</u></td>
+        <td><u>Содержание</u></td>
+        <td><u>Категория</u></td>
+    </tr>
+    {$ for post in posts $}
+    <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.dateCreation|date:'d M Y' }}</td>
+        <td>{{ post.text|truncatewords:20 }}</td>
+        {% for cat in post.postCategory.all %}
+        <td>{{ cat.name }}</td>
+        {% endfor  %}
+    </tr>
+        {$ endfor $}
+</table>
+{$  else $}
+<h3>Публикаций нет!</h3>
+{%  endif %}
+{% endblock content %}

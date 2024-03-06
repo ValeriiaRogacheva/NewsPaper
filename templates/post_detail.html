@@ -1,0 +1,25 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block content %}
+{% if post %}
+<table>
+    <tr>
+        <td>Заголовок</td>
+        <td>Дата публикации</td>
+        <td>Содержание</td>
+        <td>Категория</td>
+    </tr>
+    <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.dateCreation|date:'d M Y' }}</td>
+        <td>{{ post.text }}</td>
+        {% for cat in post.postCategory.all %}
+        <td>{{ cat.name }}</td>
+        {% endfor  %}
+    </tr>
+</table>
+{$  else $}
+<h3>Публикаций нет!</h3>
+{%  endif %}
+{% endblock content %}
